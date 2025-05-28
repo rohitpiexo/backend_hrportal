@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files (agar koi ho)
+dist/
+build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Test coverage
+coverage/
+
+# PM2 log files (agar use kar rahe ho)
+pids
+*.pid
+*.seed
+
+# Temp files
+*.swp
+*.swo
+tmp/
+temp/
