@@ -1,11 +1,11 @@
-const Employee = require('../models/employee'); // Make sure filename matches
-const Department = require('../models/Department'); // For relation
-
+// const Employee = require('../models/employee'); // Make sure filename matches
+// const Department = require('../models/Department'); // For relation
+const { Employee, Department } = require('../models');
 const employeeResolvers = {
     Query: {
         // Get all employees with their departments
         employees: async () => {
-            return await Employee.findAll({ include: Department }); // 👈 include relation
+            return await Employee.findAll({ include: [Department], }); // 👈 include relation
         },
 
         // Get a single employee by ID with department

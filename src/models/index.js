@@ -1,14 +1,12 @@
-// const { DataTypes } = require('sequelize');
-// const { sequelize } = require('../config/db');
+// src/models/index.js
+const Department = require('./Department');
+const Employee = require('./employee');
 
-// const Department = sequelize.define('Department', {
-//     name: {
-//         type: DataTypes.STRING,
-//         allowNull: false,
-//         unique: true,
-//     },
-// }, {
-//     timestamps: true,
-// });
+// ✅ Define associations here
+Department.hasMany(Employee, { foreignKey: 'departmentId' });
+Employee.belongsTo(Department, { foreignKey: 'departmentId' });
 
-// module.exports = Department;
+module.exports = {
+    Department,
+    Employee
+};

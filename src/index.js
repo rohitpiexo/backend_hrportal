@@ -1,7 +1,8 @@
 // Basic Express + Apollo Server setup
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-
+const models = require('./models');
+// const { sequelize } = require('./config/db');
 // DB connection + Sequelize ORM
 const { connectDB, sequelize } = require('./config/db');
 
