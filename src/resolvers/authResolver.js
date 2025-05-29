@@ -78,6 +78,50 @@ const authResolvers = {
 
             return { accessToken: newAccessToken, refreshToken: newRefreshToken };
         },
+        // ** Add Logout Mutation Here **
+        logout: async (_, { token }) => {
+            const storedToken = await RefreshToken.findOne({ where: { token } });
+            if (!storedToken) throw new Error('Invalid refresh token');
+
+            await storedToken.destroy();
+            return true;
+        },
+
+        // ** Add Update Profile Mutation Here **
+        updateProfile: async (_, { input }, { user }) => {
+            if (!user) throw new Error('Not authenticated');
+
+            const currentUser = await User.findByPk(user.id);
+            if (!currentUser) throw new Error('User not found');
+
+            if (input.password) {
+                input.password = await bcrypt.hash(input.password, 10);
+            }
+
+            await currentUser.update({
+                name: input.name || currentUser.name,
+                email: input.email || currentUser.email,
+                password: input.password || currentUser.password,
+            });
+
+            return currentUser;
+        },
+
+        // ** Add Reset Password Mutation Here **
+        resetPassword: async (_, { oldPassword, newPassword }, { user }) => {
+            if (!user) throw new Error('Not authenticated');
+
+            const currentUser = await User.findByPk(user.id);
+            if (!currentUser) throw new Error('User not found');
+
+            const valid = await bcrypt.compare(oldPassword, currentUser.password);
+            if (!valid) throw new Error('Old password is incorrect');
+
+            const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+            await currentUser.update({ password: hashedNewPassword });
+
+            return true;
+        },
     },
 };
 

@@ -14,6 +14,11 @@ input RegisterInput {
   password: String!
   role: String!
 }
+input UpdateProfileInput {
+    name: String
+    email: String
+    password: String
+}
 
 type AuthPayload {
   accessToken: String!
@@ -34,7 +39,10 @@ type Mutation {
   register(input: RegisterInput!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   refreshToken(token: String!): TokenRefreshPayload!
-}
+  logout(token: String!): Boolean!
+  updateProfile(input: UpdateProfileInput!): User!
+  resetPassword(oldPassword: String!, newPassword: String!): Boolean!
+  }
 `;
 
 module.exports = authTypeDefs;
